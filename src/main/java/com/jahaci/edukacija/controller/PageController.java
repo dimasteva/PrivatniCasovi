@@ -1,4 +1,4 @@
-package com.jahaci.edukacija.controller;
+package com.jahaci.edukacija.controller;    
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

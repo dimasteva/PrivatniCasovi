@@ -1,8 +1,8 @@
 package com.jahaci.edukacija.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +12,9 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String description;
+    @Column(nullable = false)
+    private String teacher;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
@@ -23,14 +26,18 @@ public class Lesson {
     @Column(nullable = false)
     private String link;
 
-    public Lesson(String name, LocalDateTime timeScheduled,String link) {
+    @JsonCreator
+    public Lesson(String description, String teacher, String name, LocalDateTime timeScheduled, String link) {
+        this.description = description;
+        this.teacher = teacher;
         this.name = name;
-        this.timeCreated = LocalDateTime.now();
+        timeCreated = LocalDateTime.now();
         this.timeScheduled = timeScheduled;
         this.link = link;
     }
 
     public Lesson() {
+
     }
 
     public Integer getId() {
@@ -39,6 +46,22 @@ public class Lesson {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 
     public String getName() {

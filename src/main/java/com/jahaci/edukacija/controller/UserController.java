@@ -2,6 +2,7 @@ package com.jahaci.edukacija.controller;
 
 import com.jahaci.edukacija.model.Lesson;
 import com.jahaci.edukacija.model.user.User;
+import com.jahaci.edukacija.model.user.UserLoginModel;
 import com.jahaci.edukacija.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +21,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.addUser(user);
-    }
-
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
@@ -36,8 +32,18 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteLesson(@PathVariable Integer id) {
+    public void deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
+    }
+
+    @GetMapping("/login")
+    public User login(@RequestBody UserLoginModel user) {
+        return userService.tryLogin(user);
+    }
+
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
+        return userService.register(user);
     }
 
 }

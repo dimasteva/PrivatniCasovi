@@ -1,5 +1,6 @@
 package com.jahaci.edukacija.service;
 
+import com.jahaci.edukacija.exception.InvalidLessonTimeException;
 import com.jahaci.edukacija.model.Lesson;
 import com.jahaci.edukacija.repository.LessonRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,10 @@ public class LessonService {
     }
 
     public Lesson addLesson(Lesson lesson) {
-        return lessonRepository.save(lesson);
+        if(lesson.getTimeCreated().isAfter(lesson.getTimeScheduled()))
+            throw new InvalidLessonTimeException("Time created cannot be after the time scheduled.");
+        else
+            return lessonRepository.save(lesson);
     }
 
     public List<Lesson> getAllLessons() {

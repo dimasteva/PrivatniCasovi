@@ -1,6 +1,8 @@
 package com.jahaci.edukacija.service;
 
+import com.jahaci.edukacija.exception.InvalidLoginDataException;
 import com.jahaci.edukacija.model.user.User;
+import com.jahaci.edukacija.model.user.UserLoginModel;
 import com.jahaci.edukacija.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User addUser(User user) {
+    public User register(User user) {
         return userRepository.save(user);
     }
+
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -30,5 +33,12 @@ public class UserService {
 
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    public User tryLogin(UserLoginModel user) {
+        return userRepository.tryLogin(
+                user.getUsername(),
+                user.getPassword()
+        ).orElseThrow(() -> new InvalidLoginDataException("Invalid Username or password"));
     }
 }
