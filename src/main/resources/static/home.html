@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>eProfesor - Početna stranica</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<span class="logo"><img src="images/logo.svg" alt="" /></span>
+						<h1>eProfesor</h1>
+						<p>Dobrodošli, <span id="username"></span>!<br />
+						Započni pretragu profesora i rezerviši čas!</p>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="#intro" class="active">Uvod</a></li>
+							<li><a href="#search">Pretraga profesora</a></li>
+							<li><a href="#profile">Moj profil</a></li>
+							<li><a href="#logout" id="logout">Odjavi se</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Introduction -->
+							<section id="intro" class="main">
+								<div class="spotlight">
+									<div class="content">
+										<header class="major">
+											<h2>Dobrodošli na platformu za online edukaciju!</h2>
+										</header>
+										<p>Naša platforma omogućava vam da brzo pronađete profesora za bilo koji predmet, nivo i budžet. Prikazujemo vam sve potrebne informacije o profesorima i njihovim dostupnostima. Rezervišite čas odmah!</p>
+									</div>
+									<span class="image"><img src="images/profesor.jpeg" alt="" /></span>
+								</div>
+							</section>
+
+						<!-- Pretraga profesora -->
+						<section id="search" class="main special">
+							<header class="major">
+								<h2>Pretraga profesora</h2>
+								<p>Pronađi profesora prema predmetu, nivou znanja ili dostupnosti.</p>
+							</header>
+							<!-- Forma za pretragu profesora -->
+							<form>
+								<label for="subject">Izaberite predmet:</label>
+								<select id="subject" name="subject">
+									<option value="math">Matematika</option>
+									<option value="english">Engleski jezik</option>
+									<option value="history">Istorija</option>
+								</select><br><br>
+
+								<label for="level">Izaberite nivo:</label>
+								<select id="level" name="level">
+									<option value="beginner">Početnik</option>
+									<option value="intermediate">Srednji nivo</option>
+									<option value="advanced">Napredni nivo</option>
+								</select><br><br>
+
+								<button type="submit" class="button primary">Pretraži</button>
+							</form>
+						</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section id = "about-us">
+							<h2>O eProfesor</h2>
+							<p>Naša misija je da povežemo učenike i profesore širom sveta i unapredimo proces edukacije.</p>
+							<ul class="actions">
+								<li><a href="about.html" class="button">Saznaj više</a></li>
+							</ul>
+						</section>
+						<section id = "contact">
+							<h2>Kontakt</h2>
+							<dl class="alt">
+								<dt>Address</dt>
+								<dd>Vuka Karadžića 13 &bull; Smederevo &bull; Srbija</dd>
+								<dt>Phone</dt>
+								<dd>+381 61 6311779</dd>
+								<dt>Email</dt>
+								<dd><a href="mailto:support@eprofesor.com">support@eprofesor.com</a></dd>
+							</dl>
+						</section>
+						<p class="copyright">&copy; 2024 eProfesor. Sva prava zadržana.</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+			<!-- JavaScript za korisnički logout i učitavanje korisničkog imena
+			<script>
+				// Učitavanje korisničkog imena
+				window.onload = function() {
+					let username = localStorage.getItem('username');
+					if (username) {
+						document.getElementById('username').innerText = username;
+					} else {
+						window.location.href = 'index.html';  // Ako nije prijavljen, preusmeriti na login stranicu
+					}
+				};
+
+				// Logout funkcija
+				document.getElementById('logout').addEventListener('click', function() {
+					localStorage.removeItem('username');
+					window.location.href = 'index.html';  // Preusmeravanje na login stranicu
+				});
+			</script>
+             -->
+
+	</body>
+</html>
