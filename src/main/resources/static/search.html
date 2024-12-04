@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>eProfesor - Pretraga časova</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+			<header id="header" class="alt">
+				<span class="logo"><img src="images/logo.svg" alt="" /></span>
+				<h1>eProfesor</h1>
+				<p>Pretraži dostupne časove</p>
+			</header>
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="index.html">Početna</a></li>
+					<li><a href="search.html" class="active">Pretraga časova</a></li>
+					<li><a href="profile.html">Moj profil</a></li>
+					<li><a href="#logout" id="logout">Odjavi se</a></li>
+				</ul>
+			</nav>
+
+			<!-- Main -->
+			<div id="main">
+
+				<!-- Search Section -->
+				<section id="search" class="main">
+					<div class="spotlight">
+						<div class="content">
+							<header class="major">
+								<h2>Pretraži časove</h2>
+							</header>
+							<p>Koristite pretragu da biste pronašli časove koji odgovaraju vašim potrebama.</p>
+							<form id="search-form">
+								<div class="input-group">
+									<input type="text" id="search-name" placeholder="Ime lekcije...">
+								</div>
+                                <br>
+								<div class="input-group">
+									<input type="text" id="search-teacher" placeholder="Ime profesora...">
+								</div>
+                                <br>
+								<div class="input-group">
+									<input type="text" id="search-datetime" placeholder="Izaberite datum i vreme...">
+								</div>
+                                <br>
+								<div class="input-group">
+									<button type="button" id="search-button" class="button primary">Pretraži</button>
+								</div>
+							</form>
+							<table id="courses-table">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Description</th>
+										<th>Teacher</th>
+										<th>Time Scheduled</th>
+										<th>Link</th>
+									</tr>
+								</thead>
+								<tbody id="courses-tbody">
+									<!-- Dynamically populated course rows -->
+									<tr>
+										<td>Matematika 101</td>
+										<td>Osnove matematike za početnike</td>
+										<td>Jovana Petrović</td>
+										<td>2024-12-05 10:00</td>
+										<td><a href="course-details.html">Detalji</a></td>
+									</tr>
+									<tr>
+										<td>Fizika - Nivo 2</td>
+										<td>Napredni kurs fizike</td>
+										<td>Marko Jovanović</td>
+										<td>2024-12-06 14:00</td>
+										<td><a href="course-details.html">Detalji</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+
+			</div>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<section id="about-us">
+					<h2>O eProfesor</h2>
+					<p>Naša misija je da povežemo učenike i profesore širom sveta i unapredimo proces edukacije.</p>
+					<ul class="actions">
+						<li><a href="about.html" class="button">Saznaj više</a></li>
+					</ul>
+				</section>
+				<section id="contact">
+					<h2>Kontakt</h2>
+					<dl class="alt">
+						<dt>Address</dt>
+						<dd>Vuka Karadžića 13 &bull; Smederevo &bull; Srbija</dd>
+						<dt>Phone</dt>
+						<dd>+381 61 6311779</dd>
+						<dt>Email</dt>
+						<dd><a href="mailto:support@eprofesor.com">support@eprofesor.com</a></dd>
+					</dl>
+				</section>
+				<p class="copyright">&copy; 2024 eProfesor. Sva prava zadržana.</p>
+			</footer>
+
+		</div>
+
+		<!-- Scripts -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+		<script>
+			// Initialize datetime picker
+			$(function() {
+				$("#search-datetime").datetimepicker({
+					format: 'Y-m-d H:i', // Format for date and time
+					step: 30, // 30-minute intervals
+					onClose: function() {
+						filterCourses();
+					}
+				});
+			});
+
+			// Add click event to search button
+			document.getElementById('search-button').addEventListener('click', function() {
+				filterCourses();
+			});
+
+			// Search function for filtering courses
+			function filterCourses() {
+				var nameInput = document.getElementById("search-name").value.toLowerCase();
+				var teacherInput = document.getElementById("search-teacher").value.toLowerCase();
+				var datetimeInput = document.getElementById("search-datetime").value.toLowerCase();
+				var table = document.getElementById("courses-table");
+				var rows = table.getElementsByTagName("tr");
+
+				for (var i = 1; i < rows.length; i++) {
+					var cells = rows[i].getElementsByTagName("td");
+					var nameCell = cells[0].innerText.toLowerCase();
+					var teacherCell = cells[2].innerText.toLowerCase();
+					var timeCell = cells[3].innerText.toLowerCase();
+
+					if (nameCell.indexOf(nameInput) > -1 && teacherCell.indexOf(teacherInput) > -1 &&
+						timeCell.indexOf(datetimeInput) > -1) {
+						rows[i].style.display = "";
+					} else {
+						rows[i].style.display = "none";
+					}
+				}
+			}
+
+			// Logout functionality
+			document.getElementById('logout').addEventListener('click', function() {
+				localStorage.removeItem('username');
+				window.location.href = 'index.html';  // Redirect to login page
+			});
+		</script>
+
+	</body>
+</html>
