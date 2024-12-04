@@ -1,6 +1,5 @@
 package com.jahaci.edukacija.controller;
 
-import com.jahaci.edukacija.model.Lesson;
 import com.jahaci.edukacija.model.user.User;
 import com.jahaci.edukacija.model.user.UserLoginModel;
 import com.jahaci.edukacija.service.UserService;

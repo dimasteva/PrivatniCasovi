@@ -10,7 +10,7 @@ public class PageController {
     @RequestMapping("/")
     public ModelAndView main() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("Main.html");
+        modelAndView.setViewName("index.html");
         return modelAndView;
     }
 }

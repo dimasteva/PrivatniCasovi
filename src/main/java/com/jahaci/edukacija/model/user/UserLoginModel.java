@@ -1,7 +1,4 @@
 package com.jahaci.edukacija.model.user;
-
-import jakarta.persistence.Entity;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

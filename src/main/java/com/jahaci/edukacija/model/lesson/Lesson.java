@@ -1,4 +1,4 @@
-package com.jahaci.edukacija.model;
+package com.jahaci.edukacija.model.lesson;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;

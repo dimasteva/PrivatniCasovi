@@ -1,7 +1,8 @@
 package com.jahaci.edukacija.controller;
 
 
-import com.jahaci.edukacija.model.Lesson;
+import com.jahaci.edukacija.model.lesson.Lesson;
+import com.jahaci.edukacija.model.lesson.LessonFilterModel;
 import com.jahaci.edukacija.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,8 @@ public class LessonController {
     }
 
     @GetMapping
-    public List<Lesson> getAllLessons() {
-        return lessonService.getAllLessons();
+    public List<Lesson> filterLessons(@RequestBody(required = false) LessonFilterModel model) {
+        return lessonService.filterLessons(model);
     }
 
     @GetMapping("/{id}")
