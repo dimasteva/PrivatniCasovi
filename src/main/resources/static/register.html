@@ -14,7 +14,6 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<span class="logo"><img src="images/logo.svg" alt="" /></span>
 						<h1>Registruj se na eProfesor</h1>
 						<p>Pristupi širokom izboru profesora i unapredi svoje obrazovanje!</p>
 					</header>
@@ -28,15 +27,15 @@
 								<h2>Kreiraj nalog</h2>
 								<p>Popuni podatke ispod kako bi započeo svoje obrazovno putovanje.</p>
 							</header>
-							<form method="post" action="#">
+							<form method="post" action="/api/register">
 								<div class="row gtr-uniform">
 									<div class="col-6 col-12-xsmall">
 										<label for="first-name">Ime</label>
-										<input type="text" name="first-name" id="first-name" placeholder="Unesi svoje ime" required />
+										<input type="text" name="firstName" id="first-name" placeholder="Unesi svoje ime" required />
 									</div>
 									<div class="col-6 col-12-xsmall">
 										<label for="last-name">Prezime</label>
-										<input type="text" name="last-name" id="last-name" placeholder="Unesi svoje prezime" required />
+										<input type="text" name="lastName" id="last-name" placeholder="Unesi svoje prezime" required />
 									</div>
 									<div class="col-12">
 										<label for="email">Email</label>
@@ -48,7 +47,7 @@
 									</div>
 									<div class="col-12">
 										<label for="confirm-password">Potvrdi lozinku</label>
-										<input type="password" name="confirm-password" id="confirm-password" placeholder="Ponovi lozinku" required />
+										<input type="password" name="confirmPassword" id="confirm-password" placeholder="Ponovi lozinku" required />
 									</div>
 									<div class="col-12">
 										<ul class="actions special">

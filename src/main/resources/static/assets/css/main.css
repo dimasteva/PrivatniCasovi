@@ -3778,3 +3778,45 @@ input, select, textarea {
 			}
 
 		}
+	
+		.profile-container {
+			display: flex;
+			gap: 2rem;
+			align-items: flex-start;
+			margin-top: 2rem;
+		}
+		
+		.profile-photo {
+			flex: 1;
+			text-align: center;
+		}
+		
+		.profile-photo img {
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			border: 3px solid #ccc;
+		}
+		
+		.profile-info {
+			flex: 2;
+		}
+		
+		.profile-info table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		.profile-info td {
+			padding: 0.5rem;
+			vertical-align: top;
+		}
+		
+		.reset-password {
+			margin-top: 3rem;
+		}
+		
+		.reset-password .field {
+			margin-bottom: 1.5rem;
+		}
+		
