@@ -49,6 +49,6 @@ public class UserLoginModel {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = sha256(password);
     }
 }
