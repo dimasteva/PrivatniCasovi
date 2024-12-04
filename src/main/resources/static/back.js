@@ -1,6 +1,5 @@
 function getUsers() {
-    fetch('http://localhost:8080/api/lessons', {
-        mode: 'no-cors',
+    fetch('http://localhost:8080/api/users', {
         headers: {'Content-Type': 'application/json'}
     })
         .then(response => response.json()) 
