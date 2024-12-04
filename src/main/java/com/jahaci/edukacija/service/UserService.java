@@ -1,6 +1,7 @@
 package com.jahaci.edukacija.service;
 
 import com.jahaci.edukacija.exception.InvalidLoginDataException;
+import com.jahaci.edukacija.exception.UsernameAlreadyExistsException;
 import com.jahaci.edukacija.model.user.User;
 import com.jahaci.edukacija.model.user.UserLoginModel;
 import com.jahaci.edukacija.repository.UserRepository;
@@ -19,7 +20,10 @@ public class UserService {
     }
 
     public User register(User user) {
-        return userRepository.save(user);
+        if(userRepository.usernameExists(user.getUsername())) {
+            throw new UsernameAlreadyExistsException("User with that username already exists.");
+        }
+        else return userRepository.save(user);
     }
 
 

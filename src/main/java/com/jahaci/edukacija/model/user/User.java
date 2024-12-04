@@ -44,7 +44,6 @@ public class User {
             throw new RuntimeException(e);
         }
         byte[] encoded = digest.digest(s.getBytes(StandardCharsets.UTF_8));
-        System.out.println(bytesToHex(encoded));
         return bytesToHex(encoded);
     }
 
@@ -77,7 +76,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = sha256(password);
     }
 
     public String getName() {

@@ -22,5 +22,12 @@ public class GlobalExceptionHandler {
                 .body(invalidLessonTimeException.getMessage());
     }
 
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public ResponseEntity<String> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException usernameAlreadyExistsException) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(usernameAlreadyExistsException.getMessage());
+    }
+
 
 }
