@@ -16,7 +16,6 @@
 
 			<!-- Header -->
 			<header id="header" class="alt">
-				<span class="logo"><img src="images/logo.svg" alt="" /></span>
 				<h1>eProfesor</h1>
 				<p>Pretraži dostupne časove</p>
 			</header>
@@ -24,7 +23,7 @@
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a href="index.html">Početna</a></li>
+					<li><a href="home.html">Početna</a></li>
 					<li><a href="search.html" class="active">Pretraga časova</a></li>
 					<li><a href="profile.html">Moj profil</a></li>
 					<li><a href="#logout" id="logout">Odjavi se</a></li>
@@ -44,19 +43,19 @@
 							<p>Koristite pretragu da biste pronašli časove koji odgovaraju vašim potrebama.</p>
 							<form id="search-form">
 								<div class="input-group">
-									<input type="text" id="search-name" placeholder="Ime lekcije...">
+									<input type="text" id="search-name" placeholder="Ime lekcije..." oninput="filterCourses()">
 								</div>
                                 <br>
 								<div class="input-group">
-									<input type="text" id="search-teacher" placeholder="Ime profesora...">
+									<input type="text" id="search-teacher" placeholder="Ime i prezime profesora..." oninput="filterCourses()">
 								</div>
                                 <br>
 								<div class="input-group">
-									<input type="text" id="search-datetime" placeholder="Izaberite datum i vreme...">
+									<input type="text" id="search-start-datetime" placeholder="Početni datum i vreme..." oninput="filterCourses()">
 								</div>
                                 <br>
 								<div class="input-group">
-									<button type="button" id="search-button" class="button primary">Pretraži</button>
+									<input type="text" id="search-end-datetime" placeholder="Krajnji datum i vreme..." oninput="filterCourses()">
 								</div>
 							</form>
 							<table id="courses-table">
@@ -75,14 +74,14 @@
 										<td>Matematika 101</td>
 										<td>Osnove matematike za početnike</td>
 										<td>Jovana Petrović</td>
-										<td>2024-12-05 10:00</td>
+										<td>2024-12-05 10:00:00</td>
 										<td><a href="course-details.html">Detalji</a></td>
 									</tr>
 									<tr>
 										<td>Fizika - Nivo 2</td>
 										<td>Napredni kurs fizike</td>
 										<td>Marko Jovanović</td>
-										<td>2024-12-06 14:00</td>
+										<td>2024-12-06 14:00:00</td>
 										<td><a href="course-details.html">Detalji</a></td>
 									</tr>
 								</tbody>
@@ -95,23 +94,23 @@
 
 			<!-- Footer -->
 			<footer id="footer">
-				<section id="about-us">
+				<section id = "about-us">
 					<h2>O eProfesor</h2>
 					<p>Naša misija je da povežemo učenike i profesore širom sveta i unapredimo proces edukacije.</p>
-					<ul class="actions">
-						<li><a href="about.html" class="button">Saznaj više</a></li>
-					</ul>
 				</section>
-				<section id="contact">
+				<section id = "contact">
 					<h2>Kontakt</h2>
 					<dl class="alt">
 						<dt>Address</dt>
 						<dd>Vuka Karadžića 13 &bull; Smederevo &bull; Srbija</dd>
-						<dt>Phone</dt>
+						<dt>Phone</dt> 
 						<dd>+381 61 6311779</dd>
 						<dt>Email</dt>
 						<dd><a href="mailto:support@eprofesor.com">support@eprofesor.com</a></dd>
 					</dl>
+					<ul class="icons">
+						<li><a href="https://github.com/dimasteva/eProfesor" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+					</ul>
 				</section>
 				<p class="copyright">&copy; 2024 eProfesor. Sva prava zadržana.</p>
 			</footer>
@@ -119,31 +118,31 @@
 		</div>
 
 		<!-- Scripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.scrollex.min.js"></script>
+        <script src="assets/js/jquery.scrolly.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 		<script>
-			// Initialize datetime picker
+			// Initialize datetime pickers
 			$(function() {
-				$("#search-datetime").datetimepicker({
-					format: 'Y-m-d H:i', // Format for date and time
-					step: 30, // 30-minute intervals
-					onClose: function() {
-						filterCourses();
-					}
+				$("#search-start-datetime, #search-end-datetime").datetimepicker({
+					format: 'Y-m-d H:i:s', // Include seconds in format
+					step: 30 // 30-minute intervals
 				});
-			});
-
-			// Add click event to search button
-			document.getElementById('search-button').addEventListener('click', function() {
-				filterCourses();
 			});
 
 			// Search function for filtering courses
 			function filterCourses() {
 				var nameInput = document.getElementById("search-name").value.toLowerCase();
 				var teacherInput = document.getElementById("search-teacher").value.toLowerCase();
-				var datetimeInput = document.getElementById("search-datetime").value.toLowerCase();
+				var startInput = new Date(document.getElementById("search-start-datetime").value);
+				var endInput = new Date(document.getElementById("search-end-datetime").value);
 				var table = document.getElementById("courses-table");
 				var rows = table.getElementsByTagName("tr");
 
@@ -151,10 +150,15 @@
 					var cells = rows[i].getElementsByTagName("td");
 					var nameCell = cells[0].innerText.toLowerCase();
 					var teacherCell = cells[2].innerText.toLowerCase();
-					var timeCell = cells[3].innerText.toLowerCase();
+					var timeCell = new Date(cells[3].innerText);
 
-					if (nameCell.indexOf(nameInput) > -1 && teacherCell.indexOf(teacherInput) > -1 &&
-						timeCell.indexOf(datetimeInput) > -1) {
+					// Check if course fits the search criteria
+					if (
+						nameCell.indexOf(nameInput) > -1 &&
+						teacherCell.indexOf(teacherInput) > -1 &&
+						(!isNaN(startInput) ? timeCell >= startInput : true) &&
+						(!isNaN(endInput) ? timeCell <= endInput : true)
+					) {
 						rows[i].style.display = "";
 					} else {
 						rows[i].style.display = "none";
