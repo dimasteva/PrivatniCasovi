@@ -27,19 +27,15 @@
 								<h2>Kreiraj nalog</h2>
 								<p>Popuni podatke ispod kako bi započeo svoje obrazovno putovanje.</p>
 							</header>
-							<form method="post" action="/api/register">
+							<form method="post">
 								<div class="row gtr-uniform">
-									<div class="col-6 col-12-xsmall">
+									<div class="col-6 col-12">
+										<label for="username">Korisničko ime</label>
+										<input type="text" name="username" id="username" placeholder="Unesi svoje korisničko ime" required />
+									</div>
+									<div class="col-6 col-12">
 										<label for="first-name">Ime</label>
 										<input type="text" name="firstName" id="first-name" placeholder="Unesi svoje ime" required />
-									</div>
-									<div class="col-6 col-12-xsmall">
-										<label for="last-name">Prezime</label>
-										<input type="text" name="lastName" id="last-name" placeholder="Unesi svoje prezime" required />
-									</div>
-									<div class="col-12">
-										<label for="email">Email</label>
-										<input type="email" name="email" id="email" placeholder="Unesi svoju email adresu" required />
 									</div>
 									<div class="col-12">
 										<label for="password">Lozinka</label>
@@ -49,9 +45,16 @@
 										<label for="confirm-password">Potvrdi lozinku</label>
 										<input type="password" name="confirmPassword" id="confirm-password" placeholder="Ponovi lozinku" required />
 									</div>
+									<div class="col-6 col-12">
+										<label for="role">Uloga</label>
+										<select name="role" id="role" required>
+											<option value="student">Student</option>
+											<option value="profesor">Profesor</option>
+										</select>
+									</div>
 									<div class="col-12">
 										<ul class="actions special">
-											<li><input type="submit" value="Registruj se" class="button primary" /></li>
+											<li><input type="button" value="Registruj se" class="button primary" onclick="register()"/></li>
 										</ul>
 									</div>
 								</div>
@@ -93,6 +96,7 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="back.js"></script>
 
 	</body>
 </html>

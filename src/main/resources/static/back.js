@@ -9,40 +9,91 @@ function getUsers() {
         });
 }
 
-function login()
-{
-    username = document.getElementById('username').value;
-    password = document.getElementById('password').value;
+function login() {
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+
     let data = {
-        username: email,
+        username: username,
         password: password
+    };
+
+    fetch('/api/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Indicate that we are sending JSON
+        },
+        body: JSON.stringify(data) // Send data as JSON string
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json(); // Parse the response as JSON if the request is successful
+        } else {
+            throw new Error('Incorrect username or password');
+        }
+    })
+    .then(data => {
+        // If the response is valid JSON, redirect to home page
+        if (data) {
+            window.location.href = 'home.html';
+        }
+    })
+    .catch(error => {
+        // If there's an error, show an alert with the error message
+        alert('Error: ' + error.message);
+        console.log('Error: ', error); // Log the error to the console for debugging
+    });
+}
+
+
+function register() {
+    // Get input values
+    let username = document.getElementById('username').value;
+    let regName = document.getElementById('first-name').value;
+    let password = document.getElementById('password').value; // Changed to match the correct input ID
+    let confirmPassword = document.getElementById('confirm-password').value;
+    let role = document.getElementById('role').value;
+    role = role.toUpperCase();
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
     }
 
-    fetch('/api/login', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    
-})
-.then(response => {
-    // Proverite da li je odgovor uspešan (status 200-299)
-    if (response.ok) {
-        return response.json();  // Parsiranje odgovora kao JSON
-    } else {
-        // Ako odgovor nije uspešan, vratite grešku
-        throw new Error('Greška pri odgovoru sa servera');
-    }
-})
-.then(data => {
-    // Ako odgovor sadrži validan JSON, preusmerite korisnika
-    if (data) {
-        window.location.href = 'home.html';
-    }
-})
-.catch(error => {
-    // Ako dođe do greške (npr. server ne vrati validan JSON), prikažite alert
-    alert('Error: ' + error.message);
-    console.log('Greška: ', error); // Ispisivanje greške u konzolu
-});
+    // Prepare data for the request body
+    let data = {
+        username: username,
+        password: password,
+        name: regName,
+        role: role
+    };
+
+    // Send POST request to /api/users/register
+    fetch('/api/users/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Indicate that we are sending JSON
+        },
+        body: JSON.stringify(data) // Send data as JSON string
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json(); // Parse the response as JSON if the request is successful
+        } else {
+            throw new Error('Error during registration');
+        }
+    })
+    .then(data => {
+        // If the response is valid JSON, redirect to home page
+        if (data) {
+            window.location.href = 'home.html';
+        }
+    })
+    .catch(error => {
+        // If there's an error, show an alert with the error message
+        alert('Error: ' + error.message);
+        console.log('Error: ', error); // Log the error to the console for debugging
+    });
 }
+
