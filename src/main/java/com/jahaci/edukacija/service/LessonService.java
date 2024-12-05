@@ -6,6 +6,8 @@ import com.jahaci.edukacija.model.lesson.Lesson;
 import com.jahaci.edukacija.model.lesson.LessonFilterModel;
 import com.jahaci.edukacija.model.user.User;
 import com.jahaci.edukacija.model.user.UserAttendanceModel;
+import com.jahaci.edukacija.model.user.UserLoginModel;
+import com.jahaci.edukacija.model.user.UserRole;
 import com.jahaci.edukacija.repository.LessonRepository;
 import com.jahaci.edukacija.repository.UserRepository;
 import jakarta.persistence.criteria.Predicate;
@@ -79,7 +81,8 @@ public class LessonService {
         return lessonRepository.findById(id);
     }
 
-    public void deleteLesson(Integer id) {
-        lessonRepository.deleteById(id);
+    public void deleteLesson(Integer id, UserLoginModel model) {
+        Optional<User> user = userRepository.tryLogin(model.getUsername(), model.getPassword());
+        if(user.isPresent()) if(user.get().getName().equals(lessonRepository.findById(id).get().getTeacher())) lessonRepository.deleteById(id);
     }
 }

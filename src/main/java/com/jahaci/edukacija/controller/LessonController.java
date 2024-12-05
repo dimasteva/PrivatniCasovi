@@ -51,8 +51,8 @@ public class LessonController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteLesson(@PathVariable Integer id) {
-        lessonService.deleteLesson(id);
+    public void deleteLesson(@PathVariable Integer id,@RequestBody UserLoginModel model) {
+        lessonService.deleteLesson(id,model);
     }
 
 }
