@@ -207,6 +207,8 @@
 
 				link.addEventListener('click', function () {
 					// Save lesson details in localStorage
+					localStorage.setItem('lessonId', lesson.id);
+					localStorage.setItem('lessonName', lesson.name);
 					localStorage.setItem('lessonName', lesson.name);
 					localStorage.setItem('lessonDescription', lesson.description);
 					localStorage.setItem('lessonTeacher', lesson.teacher);

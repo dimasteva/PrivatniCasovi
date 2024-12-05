@@ -79,14 +79,15 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
-        // Učitavanje detalja časa iz localStorage
-        document.addEventListener('DOMContentLoaded', function () {
+        // Učitavanje detalja časa iz localStorage i API-ja
+        document.addEventListener('DOMContentLoaded', async function () {
+            const lessonId = localStorage.getItem('lessonId');
             const lessonName = localStorage.getItem('lessonName');
             const lessonDescription = localStorage.getItem('lessonDescription');
             const lessonTeacher = localStorage.getItem('lessonTeacher');
             const lessonTime = localStorage.getItem('lessonTime');
             const lessonLink = localStorage.getItem('lessonLink');
-
+    
             if (lessonName) document.getElementById('lesson-name').textContent = lessonName;
             if (lessonDescription) document.getElementById('lesson-description').textContent = lessonDescription;
             if (lessonTeacher) document.getElementById('lesson-teacher').textContent = lessonTeacher;
@@ -96,7 +97,31 @@
                 linkElement.href = lessonLink;
                 linkElement.textContent = lessonLink;
             }
+    
+            // Dohvatanje liste prisutnih korisnika
+            if (lessonId) {
+                try {
+                    const response = await fetch(`/api/lessons/${lessonId}`);
+                    if (!response.ok) {
+                        throw new Error(`Greška pri dohvatanju podataka za čas: ${response.statusText}`);
+                    }
+    
+                    const lessonDetails = await response.json();
+                    const attendanceList = lessonDetails.attendance; // Pretpostavljamo da vraća listu objekata User
+                    
+                    // Dodavanje imena prisutnih u sekciju "Prisustvuju"
+                    const attendanceSection = document.getElementById('lesson-details');
+                    const attendanceParagraph = document.createElement('p');
+                    attendanceParagraph.innerHTML = `<strong>Prisustvuju:</strong> ${
+                        attendanceList.map(user => user.name).join(', ')
+                    }`;
+                    attendanceSection.appendChild(attendanceParagraph);
+                } catch (error) {
+                    console.error('Greška prilikom dohvatanja prisutnih korisnika:', error);
+                }
+            }
         });
     </script>
+    
 </body>
 </html>
