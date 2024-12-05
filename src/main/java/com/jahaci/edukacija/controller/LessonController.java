@@ -40,7 +40,7 @@ public class LessonController {
         return lessonService.unattend(model);
     }
 
-    @GetMapping
+    @PostMapping
     public List<Lesson> filterLessons(@RequestBody(required = false) LessonFilterModel model) {
         return lessonService.filterLessons(model);
     }
