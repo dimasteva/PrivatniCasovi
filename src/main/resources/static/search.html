@@ -118,6 +118,22 @@
 		<script src = "assets/js/prevent.js"></script>
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
+				const logoutButton = document.getElementById('logout');
+				if (logoutButton) {
+						logoutButton.addEventListener('click', function (e) {
+							e.preventDefault(); // Sprečava default ponašanje linka
+			
+							// Brišemo korisničke podatke iz localStorage
+							localStorage.removeItem('name');
+							localStorage.removeItem('username');
+							localStorage.removeItem('role');
+
+							window.history.replaceState(null, null, 'index.html');
+			
+							// Preusmeravanje na index.html
+							window.location.href = 'index.html';
+						});
+					}
 				const createClassMenuItem = document.getElementById('create-class');
 				if (createClassMenuItem) { // Proveri da li element postoji
 					const userRole = localStorage.getItem('role'); // Dohvati rolu iz localStorage
