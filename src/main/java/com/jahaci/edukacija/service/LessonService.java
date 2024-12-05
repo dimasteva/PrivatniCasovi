@@ -1,9 +1,13 @@
 package com.jahaci.edukacija.service;
 
 import com.jahaci.edukacija.exception.InvalidLessonTimeException;
+import com.jahaci.edukacija.exception.InvalidLoginDataException;
 import com.jahaci.edukacija.model.lesson.Lesson;
 import com.jahaci.edukacija.model.lesson.LessonFilterModel;
+import com.jahaci.edukacija.model.user.User;
+import com.jahaci.edukacija.model.user.UserAttendanceModel;
 import com.jahaci.edukacija.repository.LessonRepository;
+import com.jahaci.edukacija.repository.UserRepository;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +19,11 @@ import java.util.Optional;
 public class LessonService {
 
     private final LessonRepository lessonRepository;
+    private final UserRepository userRepository;
 
-    public LessonService(LessonRepository lessonRepository) {
+    public LessonService(LessonRepository lessonRepository, UserRepository userRepository) {
         this.lessonRepository = lessonRepository;
+        this.userRepository = userRepository;
     }
 
     public Lesson addLesson(Lesson lesson) {
@@ -26,6 +32,29 @@ public class LessonService {
         else
             return lessonRepository.save(lesson);
     }
+
+    public Lesson attend(UserAttendanceModel model) {
+        Optional<User> user = userRepository.tryLogin(model.getUsername(), model.getPassword());
+        if(user.isPresent()) {
+            Lesson l = lessonRepository.findById(model.getLessonId()).get();
+            if(!l.getAttendance().contains(user.get())) l.getAttendance().add(user.get());
+            return lessonRepository.save(l);
+        } else {
+            throw new InvalidLoginDataException("Invalid Username or Password");
+        }
+    }
+
+    public Lesson unattend(UserAttendanceModel model) {
+        Optional<User> user = userRepository.tryLogin(model.getUsername(), model.getPassword());
+        if(user.isPresent()) {
+            Lesson l = lessonRepository.findById(model.getLessonId()).get();
+            if(l.getAttendance().contains(user.get())) l.getAttendance().remove(user.get());
+            return lessonRepository.save(l);
+        } else {
+            throw new InvalidLoginDataException("Invalid Username or Password");
+        }
+    }
+
 
     public List<Lesson> filterLessons(LessonFilterModel model) {
         if(model == null) model = new LessonFilterModel(null,null,null,null);

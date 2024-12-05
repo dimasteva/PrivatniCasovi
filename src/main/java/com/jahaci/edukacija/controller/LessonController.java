@@ -3,7 +3,10 @@ package com.jahaci.edukacija.controller;
 
 import com.jahaci.edukacija.model.lesson.Lesson;
 import com.jahaci.edukacija.model.lesson.LessonFilterModel;
+import com.jahaci.edukacija.model.user.UserAttendanceModel;
+import com.jahaci.edukacija.model.user.UserLoginModel;
 import com.jahaci.edukacija.service.LessonService;
+import com.jahaci.edukacija.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +24,20 @@ public class LessonController {
         this.lessonService = lessonService;
     }
 
+
     @PostMapping
     public Lesson createLesson(@RequestBody Lesson lesson) {
         return lessonService.addLesson(lesson);
+    }
+
+    @PostMapping("/attend")
+    public Lesson attendLesson(@RequestBody UserAttendanceModel model) {
+        return lessonService.attend(model);
+    }
+
+    @PostMapping("/unattend")
+    public Lesson unattendLesson(@RequestBody UserAttendanceModel model) {
+        return lessonService.unattend(model);
     }
 
     @GetMapping

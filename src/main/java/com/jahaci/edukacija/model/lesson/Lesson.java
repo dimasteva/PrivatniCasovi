@@ -2,9 +2,12 @@ package com.jahaci.edukacija.model.lesson;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.jahaci.edukacija.model.user.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Lesson {
@@ -25,16 +28,22 @@ public class Lesson {
     private LocalDateTime timeScheduled;
     @Column(nullable = false)
     private String link;
+    @Column(nullable = true)
+    @ManyToMany
+    private List<User> attendance = new ArrayList<>();
 
     @JsonCreator
-    public Lesson(String description, String teacher, String name, LocalDateTime timeScheduled, String link) {
+    public Lesson(Integer id, String description, String teacher, String name, LocalDateTime timeScheduled, String link, List<User> attendance) {
+        this.id = id;
         this.description = description;
         this.teacher = teacher;
         this.name = name;
-        timeCreated = LocalDateTime.now();
+        this.timeCreated = LocalDateTime.now();
         this.timeScheduled = timeScheduled;
         this.link = link;
+        this.attendance = attendance;
     }
+
 
     public Lesson() {
 
@@ -94,5 +103,13 @@ public class Lesson {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public List<User> getAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(List<User> attendance) {
+        this.attendance = attendance;
     }
 }
