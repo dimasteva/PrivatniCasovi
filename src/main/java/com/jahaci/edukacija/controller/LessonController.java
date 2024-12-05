@@ -25,7 +25,7 @@ public class LessonController {
     }
 
 
-    @PostMapping
+    @PostMapping("/create")
     public Lesson createLesson(@RequestBody Lesson lesson) {
         return lessonService.addLesson(lesson);
     }
