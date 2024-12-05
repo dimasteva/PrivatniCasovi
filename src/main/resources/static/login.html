@@ -30,8 +30,8 @@
 							<form method="post">
 								<div class="row gtr-uniform">
 									<div class="col-12">
-										<label for="email">Email</label>
-										<input type="email" name="email" id="email" placeholder="Unesi svoju email adresu" required />
+										<label for="username">Korisničko ime</label>
+										<input type="text" name="username" id="username" placeholder="Unesi svoje korisničko ime required" />
 									</div>
 									<div class="col-12">
 										<label for="password">Lozinka</label>
@@ -39,13 +39,12 @@
 									</div>
 									<div class="col-12">
 										<ul class="actions special">
-											<li><input type="submit" value="Prijavi se" class="button primary"/></li>
+											<li><input type="submit" value="Prijavi se" class="button primary" onclick="login()"/></li>
 										</ul>
 									</div>
 								</div>
 							</form>
 							<p>Nemate nalog? <a href="register.html">Registrujte se ovde</a>.</p>
-							<button onclick="getUsers()"> </button>
 						</section>
 
 					</div>
