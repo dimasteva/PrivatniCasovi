@@ -58,7 +58,7 @@ public class LessonController {
 
     @PostMapping("/delete")
     public void delete(@RequestBody UserAttendanceModel model) {
-        return lessonService.deleteLesson(model);
+        lessonService.deleteLesson(model);
     }
 
 }

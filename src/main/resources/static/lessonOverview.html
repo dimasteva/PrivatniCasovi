@@ -40,6 +40,7 @@
                             <p><strong>Link za čas:</strong> <a id="lesson-link" href="#" target="_blank">Kliknite ovde</a></p>
                         </div>
                         <input id = "attend-button" type = "button" class = "button primary" />
+                        <input id = "delete-button" value = "Obriši čas" type = "button" class = "button primary" />
                         <br><br>               
                         <a href="search.html" class="button">Nazad na pretragu</a>
                     </div>
@@ -91,6 +92,7 @@
             const lessonTime = localStorage.getItem('lessonTime');
             const lessonLink = localStorage.getItem('lessonLink');
             const attendButton = document.getElementById('attend-button');
+            const deleteButton = document.getElementById('delete-button');
             doesAttend = localStorage.getItem('isAttend');
 
             const username = localStorage.getItem('username');
@@ -137,6 +139,35 @@
                 });
 
             // Dodaj event listener za klik
+            deleteButton.addEventListener('click', async function () {
+    // Prikupljanje podataka iz localStorage
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    const lessonId = localStorage.getItem('lessonId');
+
+    // Kreiranje tela zahteva
+    const requestBody = {
+        username: username,
+        password: password,
+        lessonId: lessonId
+    };
+
+    try {
+        // Slanje POST zahteva za brisanje časa
+        const response = await fetch('/api/lessons/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+        window.location.href = 'search.html';
+
+    } catch (error) {
+    }
+});
+
+
             attendButton.addEventListener('click', async function () {
 
             if (attendButton.value == "Prisustvuj") {
