@@ -35,6 +35,10 @@ function login() {
     .then(data => {
         // If the response is valid JSON, redirect to home page
         if (data) {
+            localStorage.setItem('name', data.name);
+            localStorage.setItem('username', data.username);
+            localStorage.setItem('role', data.role);
+
             window.location.href = 'home.html';
         }
     })
@@ -87,6 +91,10 @@ function register() {
     .then(data => {
         // If the response is valid JSON, redirect to home page
         if (data) {
+            localStorage.setItem('name', data.name);
+            localStorage.setItem('username', data.username);
+            localStorage.setItem('role', data.role);
+            
             window.location.href = 'home.html';
         }
     })

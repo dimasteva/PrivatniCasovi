@@ -23,6 +23,7 @@
 				<nav id="nav">
 					<ul>
 						<li><a href="home.html">Početna</a></li>
+						<li><a href="search.html">Pretraga časova</a></li>
 						<li><a href="#profile" class="active">Moj Profil</a></li>
 						<li><a href="logout.html">Odjavi se</a></li>
 					</ul>
@@ -43,24 +44,20 @@
 								<h3>Podaci o korisniku</h3>
 								<table>
 									<tr>
-										<td><strong>Ime:</strong></td>
-										<td>Marko</td>
+										<td><strong>Ime i prezime:</strong></td>
+										<td id="name">N/A</td>
 									</tr>
 									<tr>
-										<td><strong>Prezime:</strong></td>
-										<td>Petrović</td>
+										<td><strong>Korisničko ime:</strong></td>
+										<td id="username">N/A</td>
 									</tr>
 									<tr>
-										<td><strong>Broj godina:</strong></td>
-										<td>25</td>
+										<td><strong>Uloga:</strong></td>
+										<td id="role">N/A</td>
 									</tr>
-									<tr>
-										<td><strong>Email:</strong></td>
-										<td>marko.petrovic@example.com</td>
-									</tr>
-								</table>
+								</table>								
 							</div>
-						</div>
+						</div>						
 
 						<!-- Resetovanje lozinke -->
 						<div class="reset-password">
@@ -101,6 +98,45 @@
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
+		<script src = "assets/js/prevent.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+			// Dohvatanje elemenata
+			const nameElement = document.getElementById('name');
+			const usernameElement = document.getElementById('username');
+			const roleElement = document.getElementById('role');
 
+			// Dohvatanje podataka iz localStorage
+			const name = localStorage.getItem('name');
+			const username = localStorage.getItem('username');
+			const role = localStorage.getItem('role');
+
+			// Funkcija za formatiranje stringa: prvo slovo veliko, ostalo mala
+			function capitalizeFirstLetter(str) {
+				if (!str) return ''; // Provera da li je string validan
+				return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+			}
+
+			// Provera i postavljanje podataka
+			if (name) {
+				nameElement.textContent = name;
+			} else {
+				nameElement.textContent = 'N/A';
+			}
+
+			if (username) {
+				usernameElement.textContent = username;
+			} else {
+				usernameElement.textContent = 'N/A';
+			}
+
+			if (role) {
+				roleElement.textContent = capitalizeFirstLetter(role);
+			} else {
+				roleElement.textContent = 'N/A';
+			}
+		});
+
+		</script>
 	</body>
 </html>
