@@ -58,6 +58,8 @@ function register() {
     let confirmPassword = document.getElementById('confirm-password').value;
     let role = document.getElementById('role').value;
     role = role.toUpperCase();
+    if (role == "PROFESOR")
+        role = "TEACHER";
 
     // Check if passwords match
     if (password !== confirmPassword) {
