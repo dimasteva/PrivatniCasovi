@@ -64,9 +64,9 @@
 								<table id="courses-table">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th>Teacher</th>
-											<th>Time Scheduled</th>
+											<th>Naziv predavanja</th>
+											<th>Profesor</th>
+											<th>Vreme zakazano</th>
 											<th>Detalji</th>
 										</tr>
 									</thead>
@@ -207,7 +207,6 @@
 
 				link.addEventListener('click', function () {
 					// Save lesson details in localStorage
-					localStorage.setItem('isAttend', '0');
 					localStorage.setItem('lessonId', lesson.id);
 					localStorage.setItem('lessonName', lesson.name);
 					localStorage.setItem('lessonName', lesson.name);
