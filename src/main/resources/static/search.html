@@ -25,6 +25,7 @@
 				<ul>
 					<li><a href="home.html">Početna</a></li>
 					<li><a href="search.html" class="active">Pretraga časova</a></li>
+					<li id="create-class"><a href="createLesson.html">Kreiraj čas</a></li>
 					<li><a href="profile.html">Moj profil</a></li>
 					<li><a href="#logout" id="logout">Odjavi se</a></li>
 				</ul>
@@ -60,34 +61,6 @@
 									<input type="datetime-local" id="search-end-datetime" oninput="filterCourses()">
 								</div>								
 							</form>
-							<table id="courses-table">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th>Description</th>
-										<th>Teacher</th>
-										<th>Time Scheduled</th>
-										<th>Link</th>
-									</tr>
-								</thead>
-								<tbody id="courses-tbody">
-									<!-- Dynamically populated course rows -->
-									<tr>
-										<td>Matematika 101</td>
-										<td>Osnove matematike za početnike</td>
-										<td>Jovana Petrović</td>
-										<td>2024-12-05 10:00:00</td>
-										<td><a href="course-details.html">Detalji</a></td>
-									</tr>
-									<tr>
-										<td>Fizika - Nivo 2</td>
-										<td>Napredni kurs fizike</td>
-										<td>Marko Jovanović</td>
-										<td>2024-12-06 14:00:00</td>
-										<td><a href="course-details.html">Detalji</a></td>
-									</tr>
-								</tbody>
-							</table>
 						</div>
 					</div>
 				</section>
@@ -133,6 +106,15 @@
 		<script src = "assets/js/prevent.js"></script>
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
+				const createClassMenuItem = document.getElementById('create-class');
+				if (createClassMenuItem) { // Proveri da li element postoji
+					const userRole = localStorage.getItem('role'); // Dohvati rolu iz localStorage
+					if (userRole === 'STUDENT') {
+						createClassMenuItem.remove(); // Ukloni element iz DOM-a
+					}
+					} else {
+						console.error('Element sa ID-jem "create-class" nije pronađen.');
+					}
 				// Učitavanje svih lekcija pri pokretanju stranice
 				fetchLessons();
 		
@@ -141,7 +123,7 @@
 			});
 		
 			async function fetchLessons(body = null) {
-				const url = 'http://localhost:8080/api/lessons';
+				const url = '/api/lessons';
 				const options = {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },

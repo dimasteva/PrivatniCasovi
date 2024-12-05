@@ -24,6 +24,7 @@
 					<ul>
 						<li><a href="home.html">Početna</a></li>
 						<li><a href="search.html">Pretraga časova</a></li>
+						<li id="create-class"><a href="createLesson.html">Kreiraj čas</a></li>
 						<li><a href="#profile" class="active">Moj Profil</a></li>
 						<li><a href="logout.html">Odjavi se</a></li>
 					</ul>
@@ -100,7 +101,17 @@
 		<script src="assets/js/main.js"></script>
 		<script src = "assets/js/prevent.js"></script>
 		<script>
+
 			document.addEventListener('DOMContentLoaded', function () {
+			const createClassMenuItem = document.getElementById('create-class');
+			if (createClassMenuItem) { // Proveri da li element postoji
+				const userRole = localStorage.getItem('role'); // Dohvati rolu iz localStorage
+				if (userRole === 'STUDENT') {
+					createClassMenuItem.remove(); // Ukloni element iz DOM-a
+				}
+				} else {
+					console.error('Element sa ID-jem "create-class" nije pronađen.');
+				}
 			// Dohvatanje elemenata
 			const nameElement = document.getElementById('name');
 			const usernameElement = document.getElementById('username');
@@ -109,8 +120,9 @@
 			// Dohvatanje podataka iz localStorage
 			const name = localStorage.getItem('name');
 			const username = localStorage.getItem('username');
-			const role = localStorage.getItem('role');
-
+			role = localStorage.getItem('role');
+			if (role == 'TEACHER')
+				role = 'Profesor';
 			// Funkcija za formatiranje stringa: prvo slovo veliko, ostalo mala
 			function capitalizeFirstLetter(str) {
 				if (!str) return ''; // Provera da li je string validan

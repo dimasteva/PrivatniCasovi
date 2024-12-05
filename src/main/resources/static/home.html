@@ -24,7 +24,7 @@
 						<ul>
 							<li><a href="#intro" class="active">Uvod</a></li>
 							<li><a href="search.html">Pretraga časova</a></li>
-							<li id="create-class" style="display: none;"><a href="search.html">Kreiraj čas</a></li>
+							<li id="create-class"><a href="createLesson.html">Kreiraj čas</a></li>
 							<li><a href="profile.html">Moj profil</a></li>
 							<li><a href="#logout" id="logout">Odjavi se</a></li>
 						</ul>
@@ -108,8 +108,18 @@
 			
 			<script>
 				document.addEventListener('DOMContentLoaded', function () {
+					const createClassMenuItem = document.getElementById('create-class');
 					const logoutButton = document.getElementById('logout');
-			
+					
+					if (createClassMenuItem) { // Proveri da li element postoji
+					const userRole = localStorage.getItem('role'); // Dohvati rolu iz localStorage
+					if (userRole === 'STUDENT') {
+						createClassMenuItem.remove(); // Ukloni element iz DOM-a
+					}
+					} else {
+						console.error('Element sa ID-jem "create-class" nije pronađen.');
+					}
+
 					if (logoutButton) {
 						logoutButton.addEventListener('click', function (e) {
 							e.preventDefault(); // Sprečava default ponašanje linka

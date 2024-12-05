@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>eProfesor - Kreiraj čas</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+			<header id="header" class="alt">
+				<h1>eProfesor</h1>
+				<p>Kreiraj novi čas</p>
+			</header>
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="home.html">Početna</a></li>
+					<li><a href="search.html">Pretraga časova</a></li>
+					<li><a href="createLesson.html" class="active">Kreiraj čas</a></li>
+					<li><a href="profile.html">Moj profil</a></li>
+					<li><a href="#logout" id="logout">Odjavi se</a></li>
+				</ul>
+			</nav>
+
+			<!-- Main -->
+			<div id="main">
+
+				<!-- Create Lesson Section -->
+				<section id="create-lesson" class="main">
+					<div class="spotlight">
+						<div class="content">
+							<header class="major">
+								<h2>Kreiraj čas</h2>
+							</header>
+							
+							<form id="create-lesson-form">
+								<div class="input-group">
+									<label for="lesson-name">Ime lekcije:</label>
+									<input type="text" id="lesson-name" placeholder="Ime lekcije" required>
+								</div>
+								<br>
+								<div class="input-group">
+									<label for="lesson-description">Opis:</label>
+									<input type="text" id="lesson-description" placeholder="Opis časa" required>
+								</div>
+								<br>
+								<div class="input-group">
+									<label for="lesson-time">Datum i vreme:</label>
+									<input type="datetime-local" id="lesson-time" required>
+								</div>
+								<br>
+								<div class="input-group">
+									<label for="lesson-link">Link do časa:</label>
+									<input type="text" id="lesson-link" placeholder="Link do časa" required>
+								</div>
+								<br>
+								<button type="submit" id="submit-btn">Dodaj čas</button>
+							</form>
+						</div>
+					</div>
+				</section>
+
+			</div>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<section id="about-us">
+					<h2>O eProfesor</h2>
+					<p>Naša misija je da povežemo učenike i profesore širom sveta i unapredimo proces edukacije.</p>
+				</section>
+				<section id="contact">
+					<h2>Kontakt</h2>
+					<dl class="alt">
+						<dt>Address</dt>
+						<dd>Vuka Karadžića 13 &bull; Smederevo &bull; Srbija</dd>
+						<dt>Phone</dt> 
+						<dd>+381 61 6311779</dd>
+						<dt>Email</dt>
+						<dd><a href="mailto:support@eprofesor.com">support@eprofesor.com</a></dd>
+					</dl>
+					<ul class="icons">
+						<li><a href="https://github.com/dimasteva/eProfesor" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+					</ul>
+				</section>
+				<p class="copyright">&copy; 2024 eProfesor. Sva prava zadržana.</p>
+			</footer>
+
+		</div>
+
+		<!-- Scripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/main.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				const form = document.getElementById('create-lesson-form');
+
+				form.addEventListener('submit', async function(event) {
+					event.preventDefault();
+
+					// Preuzimanje vrednosti sa forme
+					const name = document.getElementById('lesson-name').value.trim();
+					const description = document.getElementById('lesson-description').value.trim();
+					let timeScheduled = document.getElementById('lesson-time').value;
+                    let date = new Date(timeScheduled); // Kreiraj Date objekat sa unosom
+
+                    // Formatiraj datum u željeni oblik
+                    let formattedDate = date.getFullYear() + '-' + 
+                                        String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+                                        String(date.getDate()).padStart(2, '0') + 'T' + 
+                                        String(date.getHours()).padStart(2, '0') + ':' + 
+                                        String(date.getMinutes()).padStart(2, '0') + ':00';
+                                        const link = document.getElementById('lesson-link').value.trim();
+					
+					const userRole = localStorage.getItem('role');
+					
+					// Proveri da li je korisnik profesor
+					if (userRole !== 'TEACHER') {
+						alert('Nemate pravo da kreirate čas!');
+						return;
+					}
+                    const teacher1 = localStorage.getItem('name');
+                    alert(teacher1);
+                    alert(formattedDate);
+                    alert(name);
+                    alert(description);
+                    alert(link);
+					const lessonData = {
+						name: name,
+						description: description,
+						teacher: teacher1,
+						timeScheduled: formattedDate,
+						link: link,
+					};
+
+					// Pošaljite POST zahtev za kreiranje časa
+					try {
+						const response = await fetch('/api/lessons/create', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify(lessonData)
+						});
+
+						const result = await response.json();
+
+						if (response.ok) {
+							alert('Uspešno ste kreirali čas!');
+							form.reset(); // Resetuj formu
+						} else {
+							alert('Greška pri kreiranju časa: ' + (result.message || 'Nepoznata greška'));
+						}
+					} catch (error) {
+						alert('Greška pri povezivanju sa serverom: ' + error.message);
+					}
+				});
+			});
+		</script>
+
+	</body>
+</html>
