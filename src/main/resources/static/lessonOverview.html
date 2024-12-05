@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
 <body class="is-preload">
@@ -126,9 +127,9 @@
                     // Ako je odgovor true, postavljamo value na "Unattend", ako je false na "Attend"
                     const attendingButton = document.getElementById('attend-button');
                     if (data === true) {
-                    attendingButton.value = 'Unattend';
+                    attendingButton.value = 'Odsustvuj';
                     } else {
-                    attendingButton.value = 'Attend';
+                    attendingButton.value = 'Prisustvuj';
                     }
                 })
                 .catch(error => {
@@ -138,7 +139,7 @@
             // Dodaj event listener za klik
             attendButton.addEventListener('click', async function () {
 
-            if (attendButton.value == "Attend") {
+            if (attendButton.value == "Prisustvuj") {
                 // Uzmi podatke iz LocalStorage
                 const username = localStorage.getItem('username');
                 const password = localStorage.getItem('password');
@@ -173,7 +174,7 @@
                     console.error('Greška prilikom slanja zahteva:', error);
                     alert('Dogodila se greška. Pokušajte ponovo kasnije.');
                 }
-                attendButton.value = "Unattend"; // Promeni tekst dugmeta
+                attendButton.value = "Odsustvuj"; // Promeni tekst dugmeta
             } else {
                 const username = localStorage.getItem('username');
                 const password = localStorage.getItem('password');
@@ -199,7 +200,7 @@
                     if (response.ok) {
                         const jsonResponse = await response.json(); // Dobijamo odgovor u JSON formatu
                         console.log('Uspešno!', jsonResponse);
-                        attendButton.textContent = "Attend"; // Promeni tekst dugmeta
+                        attendButton.textContent = "Prisustvuj"; // Promeni tekst dugmeta
                     } else {
                         console.error('Neuspešno! Status:', response.status);
                         alert('Neuspešno prisustvovanje lekciji.');
@@ -208,7 +209,7 @@
                     console.error('Greška prilikom slanja zahteva:', error);
                     alert('Dogodila se greška. Pokušajte ponovo kasnije.');
                 }
-                attendButton.value = "Attend"; // Promeni tekst dugmeta
+                attendButton.value = "Prisustvuj"; // Promeni tekst dugmeta
             }
             location.reload();
     });
