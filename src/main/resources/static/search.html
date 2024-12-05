@@ -1,189 +1,188 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>eProfesor - Pretraga časova</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+	<!DOCTYPE HTML>
+	<html>
+		<head>
+			<title>eProfesor - Pretraga časova</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+			<link rel="stylesheet" href="assets/css/main.css" />
+			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+			<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		</head>
+		<body class="is-preload">
 
-		<!-- Wrapper -->
-		<div id="wrapper">
+			<!-- Wrapper -->
+			<div id="wrapper">
 
-			<!-- Header -->
-			<header id="header" class="alt">
-				<h1>eProfesor</h1>
-				<p>Pretraži dostupne časove</p>
-			</header>
+				<!-- Header -->
+				<header id="header" class="alt">
+					<h1>eProfesor</h1>
+					<p>Pretraži dostupne časove</p>
+				</header>
 
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li><a href="home.html">Početna</a></li>
-					<li><a href="search.html" class="active">Pretraga časova</a></li>
-					<li id="create-class"><a href="createLesson.html">Kreiraj čas</a></li>
-					<li><a href="profile.html">Moj profil</a></li>
-					<li><a href="#logout" id="logout">Odjavi se</a></li>
-				</ul>
-			</nav>
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li><a href="home.html">Početna</a></li>
+						<li><a href="search.html" class="active">Pretraga časova</a></li>
+						<li id="create-class"><a href="createLesson.html">Kreiraj čas</a></li>
+						<li><a href="profile.html">Moj profil</a></li>
+						<li><a href="#logout" id="logout">Odjavi se</a></li>
+					</ul>
+				</nav>
 
-			<!-- Main -->
-			<div id="main">
+				<!-- Main -->
+				<div id="main">
 
-				<!-- Search Section -->
-				<section id="search" class="main">
-					<div class="spotlight">
-						<div class="content">
-							<header class="major">
-								<h2>Pretraži časove</h2>
-							</header>
-							<p>Koristite pretragu da biste pronašli časove koji odgovaraju vašim potrebama.</p>
-							<form id="search-form">
-								<div class="input-group">
-									<input type="text" id="search-name" placeholder="Ime lekcije..." oninput="filterCourses()">
-								</div>
-                                <br>
-								<div class="input-group">
-									<input type="text" id="search-teacher" placeholder="Ime i prezime profesora..." oninput="filterCourses()">
-								</div>
-                                <br>
-								<div class="input-group">
-									<label for="search-start-datetime">Početni datum i vreme:</label>
-									<input type="datetime-local" id="search-start-datetime" oninput="filterCourses()">
-								</div>
-								<br>
-								<div class="input-group">
-									<label for="search-end-datetime">Krajnji datum i vreme:</label>
-									<input type="datetime-local" id="search-end-datetime" oninput="filterCourses()">
-								</div>								
-							</form>
-							<table id="courses-table">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th>Description</th>
-										<th>Teacher</th>
-										<th>Time Scheduled</th>
-										<th>Link</th>
-									</tr>
-								</thead>
-								<tbody id="courses-tbody"></tbody>
-							</table>
+					<!-- Search Section -->
+					<section id="search" class="main">
+						<div class="spotlight">
+							<div class="content">
+								<header class="major">
+									<h2>Pretraži časove</h2>
+								</header>
+								<p>Koristite pretragu da biste pronašli časove koji odgovaraju vašim potrebama.</p>
+								<form id="search-form">
+									<div class="input-group">
+										<input type="text" id="search-name" placeholder="Ime lekcije..." oninput="filterCourses()">
+									</div>
+									<br>
+									<div class="input-group">
+										<input type="text" id="search-teacher" placeholder="Ime i prezime profesora..." oninput="filterCourses()">
+									</div>
+									<br>
+									<div class="input-group">
+										<label for="search-start-datetime">Početni datum i vreme:</label>
+										<input type="datetime-local" id="search-start-datetime" oninput="filterCourses()">
+									</div>
+									<br>
+									<div class="input-group">
+										<label for="search-end-datetime">Krajnji datum i vreme:</label>
+										<input type="datetime-local" id="search-end-datetime" oninput="filterCourses()">
+									</div>								
+								</form>
+								<table id="courses-table">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>Teacher</th>
+											<th>Time Scheduled</th>
+											<th>Detalji</th>
+										</tr>
+									</thead>
+									<tbody id="courses-tbody"></tbody>
+								</table>
+							</div>
 						</div>
-					</div>
-				</section>
+					</section>
+
+				</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<section id = "about-us">
+						<h2>O eProfesor</h2>
+						<p>Naša misija je da povežemo učenike i profesore širom sveta i unapredimo proces edukacije.</p>
+					</section>
+					<section id = "contact">
+						<h2>Kontakt</h2>
+						<dl class="alt">
+							<dt>Address</dt>
+							<dd>Vuka Karadžića 13 &bull; Smederevo &bull; Srbija</dd>
+							<dt>Phone</dt> 
+							<dd>+381 61 6311779</dd>
+							<dt>Email</dt>
+							<dd><a href="mailto:support@eprofesor.com">support@eprofesor.com</a></dd>
+						</dl>
+						<ul class="icons">
+							<li><a href="https://github.com/dimasteva/eProfesor" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+						</ul>
+					</section>
+					<p class="copyright">&copy; 2024 eProfesor. Sva prava zadržana.</p>
+				</footer>
 
 			</div>
 
-			<!-- Footer -->
-			<footer id="footer">
-				<section id = "about-us">
-					<h2>O eProfesor</h2>
-					<p>Naša misija je da povežemo učenike i profesore širom sveta i unapredimo proces edukacije.</p>
-				</section>
-				<section id = "contact">
-					<h2>Kontakt</h2>
-					<dl class="alt">
-						<dt>Address</dt>
-						<dd>Vuka Karadžića 13 &bull; Smederevo &bull; Srbija</dd>
-						<dt>Phone</dt> 
-						<dd>+381 61 6311779</dd>
-						<dt>Email</dt>
-						<dd><a href="mailto:support@eprofesor.com">support@eprofesor.com</a></dd>
-					</dl>
-					<ul class="icons">
-						<li><a href="https://github.com/dimasteva/eProfesor" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
-					</ul>
-				</section>
-				<p class="copyright">&copy; 2024 eProfesor. Sva prava zadržana.</p>
-			</footer>
+			<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+			<script src = "assets/js/prevent.js"></script>
+			<script>
+				document.addEventListener('DOMContentLoaded', function() {
+					const logoutButton = document.getElementById('logout');
+					if (logoutButton) {
+							logoutButton.addEventListener('click', function (e) {
+								e.preventDefault(); // Sprečava default ponašanje linka
+				
+								// Brišemo korisničke podatke iz localStorage
+								localStorage.removeItem('name');
+								localStorage.removeItem('username');
+								localStorage.removeItem('role');
 
-		</div>
-
-		<!-- Scripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/jquery.scrollex.min.js"></script>
-        <script src="assets/js/jquery.scrolly.min.js"></script>
-        <script src="assets/js/browser.min.js"></script>
-        <script src="assets/js/breakpoints.min.js"></script>
-        <script src="assets/js/util.js"></script>
-        <script src="assets/js/main.js"></script>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-		<script src = "assets/js/prevent.js"></script>
-		<script>
-			document.addEventListener('DOMContentLoaded', function() {
-				const logoutButton = document.getElementById('logout');
-				if (logoutButton) {
-						logoutButton.addEventListener('click', function (e) {
-							e.preventDefault(); // Sprečava default ponašanje linka
+								window.history.replaceState(null, null, 'index.html');
+				
+								// Preusmeravanje na index.html
+								window.location.href = 'index.html';
+							});
+						}
+					const createClassMenuItem = document.getElementById('create-class');
+					if (createClassMenuItem) { // Proveri da li element postoji
+						const userRole = localStorage.getItem('role'); // Dohvati rolu iz localStorage
+						if (userRole === 'STUDENT') {
+							createClassMenuItem.remove(); // Ukloni element iz DOM-a
+						}
+						} else {
+							console.error('Element sa ID-jem "create-class" nije pronađen.');
+						}
+					// Učitavanje svih lekcija pri pokretanju stranice
+					fetchLessons();
 			
-							// Brišemo korisničke podatke iz localStorage
-							localStorage.removeItem('name');
-							localStorage.removeItem('username');
-							localStorage.removeItem('role');
-
-							window.history.replaceState(null, null, 'index.html');
+					// Event listener za pretragu
+					document.getElementById('search-form').addEventListener('input', filterCourses);
+				});
 			
-							// Preusmeravanje na index.html
-							window.location.href = 'index.html';
-						});
+				async function fetchLessons(body = null) {
+					const url = '/api/lessons';
+					const options = {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: body ? JSON.stringify(body) : null
+					};
+			
+					try {
+						const response = await fetch(url, options);
+						const lessons = await response.json();
+						populateTable(lessons);
+					} catch (error) {
+						console.error('Greška pri povlačenju podataka:', error);
 					}
-				const createClassMenuItem = document.getElementById('create-class');
-				if (createClassMenuItem) { // Proveri da li element postoji
-					const userRole = localStorage.getItem('role'); // Dohvati rolu iz localStorage
-					if (userRole === 'STUDENT') {
-						createClassMenuItem.remove(); // Ukloni element iz DOM-a
-					}
-					} else {
-						console.error('Element sa ID-jem "create-class" nije pronađen.');
-					}
-				// Učitavanje svih lekcija pri pokretanju stranice
-				fetchLessons();
-		
-				// Event listener za pretragu
-				document.getElementById('search-form').addEventListener('input', filterCourses);
-			});
-		
-			async function fetchLessons(body = null) {
-				const url = '/api/lessons';
-				const options = {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: body ? JSON.stringify(body) : null
-				};
-		
-				try {
-					const response = await fetch(url, options);
-					const lessons = await response.json();
-					populateTable(lessons);
-				} catch (error) {
-					console.error('Greška pri povlačenju podataka:', error);
 				}
+			
+				function filterCourses() {
+				const nameInput = document.getElementById("search-name").value.trim();
+				const teacherInput = document.getElementById("search-teacher").value.trim();
+				const startInput = document.getElementById("search-start-datetime").value;
+				const endInput = document.getElementById("search-end-datetime").value;
+
+				// Kreiranje JSON tela sa samo popunjenim vrednostima
+				const body = {};
+				if (nameInput) body.name = nameInput;
+				if (teacherInput) body.teacher = teacherInput;
+				if (startInput) body.start = new Date(startInput).toISOString(); // Konvertuje u ISO format
+				if (endInput) body.end = new Date(endInput).toISOString(); // Konvertuje u ISO format
+
+				fetchLessons(Object.keys(body).length ? body : null);
 			}
-		
-			function filterCourses() {
-			const nameInput = document.getElementById("search-name").value.trim();
-			const teacherInput = document.getElementById("search-teacher").value.trim();
-			const startInput = document.getElementById("search-start-datetime").value;
-			const endInput = document.getElementById("search-end-datetime").value;
 
-			// Kreiranje JSON tela sa samo popunjenim vrednostima
-			const body = {};
-			if (nameInput) body.name = nameInput;
-			if (teacherInput) body.teacher = teacherInput;
-			if (startInput) body.start = new Date(startInput).toISOString(); // Konvertuje u ISO format
-			if (endInput) body.end = new Date(endInput).toISOString(); // Konvertuje u ISO format
-
-			fetchLessons(Object.keys(body).length ? body : null);
-		}
-
-		function populateTable(lessons) {
+			function populateTable(lessons) {
 			const tbody = document.getElementById('courses-tbody');
 			tbody.innerHTML = ''; // Očisti postojeće redove
 
@@ -192,19 +191,41 @@
 				const formattedDate = `${timeScheduled.getFullYear()}-${String(timeScheduled.getMonth() + 1).padStart(2, '0')}-${String(timeScheduled.getDate()).padStart(2, '0')} ${String(timeScheduled.getHours()).padStart(2, '0')}:${String(timeScheduled.getMinutes()).padStart(2, '0')}`;
 
 				const row = document.createElement('tr');
+
 				row.innerHTML = `
 					<td>${lesson.name}</td>
-					<td>${lesson.description}</td>
 					<td>${lesson.teacher}</td>
 					<td>${formattedDate}</td>
-					<td><a href="${lesson.link}" target="_blank">Detalji</a></td>
 				`;
+
+				// Create the "Detalji" link and attach the event listener
+				const linkCell = document.createElement('td');
+				const link = document.createElement('a');
+				link.href = "lessonOverview.html";
+				link.target = "_blank"; // Open in a new tab
+				link.textContent = "Prikaži detalje";
+
+				link.addEventListener('click', function () {
+					// Save lesson details in localStorage
+					localStorage.setItem('lessonName', lesson.name);
+					localStorage.setItem('lessonDescription', lesson.description);
+					localStorage.setItem('lessonTeacher', lesson.teacher);
+					localStorage.setItem('lessonTime', formattedDate);
+					localStorage.setItem('lessonLink', lesson.link);
+					localStorage.setItem('lessonAttendance', JSON.stringify(lesson.attendance)); // Dodaj prisutne
+				});
+
+				linkCell.appendChild(link);
+				row.appendChild(linkCell);
+
 				tbody.appendChild(row);
 			});
-		}
+}
 
-		</script>
-		
 
-	</body>
-</html>
+
+			</script>
+			
+
+		</body>
+	</html>

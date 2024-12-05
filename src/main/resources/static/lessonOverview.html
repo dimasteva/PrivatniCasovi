@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>eProfesor - Detalji časa</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header" class="alt">
+            <h1>eProfesor</h1>
+            <p>Detalji časa</p>
+        </header>
+
+        <!-- Main -->
+        <div id="main">
+
+            <!-- Lesson Overview Section -->
+            <section id="lesson-overview" class="main">
+                <div class="spotlight">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Detalji časa</h2>
+                        </header>
+                        <p>Ovde možete videti detaljne informacije o odabranom času.</p>
+                        <div id="lesson-details">
+                            <p><strong>Ime lekcije:</strong> <span id="lesson-name"></span></p>
+                            <p><strong>Opis:</strong> <span id="lesson-description"></span></p>
+                            <p><strong>Profesor:</strong> <span id="lesson-teacher"></span></p>
+                            <p><strong>Zakazano vreme:</strong> <span id="lesson-time"></span></p>
+                            <p><strong>Link za čas:</strong> <a id="lesson-link" href="#" target="_blank">Kliknite ovde</a></p>
+                        </div>                        
+                        <a href="search.html" class="button">Nazad na pretragu</a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <section id="about-us">
+                <h2>O eProfesor</h2>
+                <p>Naša misija je da povežemo učenike i profesore širom sveta i unapredimo proces edukacije.</p>
+            </section>
+            <section id="contact">
+                <h2>Kontakt</h2>
+                <dl class="alt">
+                    <dt>Adresa</dt>
+                    <dd>Vuka Karadžića 13 &bull; Smederevo &bull; Srbija</dd>
+                    <dt>Telefon</dt>
+                    <dd>+381 61 6311779</dd>
+                    <dt>Email</dt>
+                    <dd><a href="mailto:support@eprofesor.com">support@eprofesor.com</a></dd>
+                </dl>
+                <ul class="icons">
+                    <li><a href="https://github.com/dimasteva/eProfesor" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+                </ul>
+            </section>
+            <p class="copyright">&copy; 2024 eProfesor. Sva prava zadržana.</p>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Učitavanje detalja časa iz localStorage
+        document.addEventListener('DOMContentLoaded', function () {
+            const lessonName = localStorage.getItem('lessonName');
+            const lessonDescription = localStorage.getItem('lessonDescription');
+            const lessonTeacher = localStorage.getItem('lessonTeacher');
+            const lessonTime = localStorage.getItem('lessonTime');
+            const lessonLink = localStorage.getItem('lessonLink');
+
+            if (lessonName) document.getElementById('lesson-name').textContent = lessonName;
+            if (lessonDescription) document.getElementById('lesson-description').textContent = lessonDescription;
+            if (lessonTeacher) document.getElementById('lesson-teacher').textContent = lessonTeacher;
+            if (lessonTime) document.getElementById('lesson-time').textContent = lessonTime;
+            if (lessonLink) {
+                const linkElement = document.getElementById('lesson-link');
+                linkElement.href = lessonLink;
+                linkElement.textContent = lessonLink;
+            }
+        });
+    </script>
+</body>
+</html>
