@@ -63,8 +63,7 @@ public class LessonService {
         LessonFilterModel finalModel = model;
         return lessonRepository.findAll((root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
-            System.out.println(finalModel.getName());
-            if(finalModel.getTeacher() != null) predicates.add(cb.equal(root.get("teacher"), finalModel.getTeacher()));
+            if(finalModel.getTeacher() != null) predicates.add(cb.like(root.get("teacher"), "%" +finalModel.getTeacher() + "%"));
             if (finalModel.getName() != null) predicates.add(cb.like(root.get("name"), "%" + finalModel.getName() + "%"));
             if(finalModel.getStart() != null) predicates.add(cb.greaterThanOrEqualTo(root.get("timeScheduled"), finalModel.getStart()));
             if(finalModel.getEnd() != null) predicates.add(cb.lessThanOrEqualTo(root.get("timeScheduled"), finalModel.getEnd()));
