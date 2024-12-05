@@ -29,5 +29,12 @@ public class GlobalExceptionHandler {
                 .body(usernameAlreadyExistsException.getMessage());
     }
 
+    @ExceptionHandler(UsernameMustContainSpaceException.class)
+    public ResponseEntity<String> handleUsernameMustContainSpaceException(UsernameMustContainSpaceException usernameMustContainSpaceException) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(usernameMustContainSpaceException.getMessage());
+    }
+
 
 }
