@@ -51,12 +51,14 @@
 								</div>
                                 <br>
 								<div class="input-group">
-									<input type="text" id="search-start-datetime" placeholder="Početni datum i vreme..." oninput="filterCourses()">
+									<label for="search-start-datetime">Početni datum i vreme:</label>
+									<input type="datetime-local" id="search-start-datetime" oninput="filterCourses()">
 								</div>
-                                <br>
+								<br>
 								<div class="input-group">
-									<input type="text" id="search-end-datetime" placeholder="Krajnji datum i vreme..." oninput="filterCourses()">
-								</div>
+									<label for="search-end-datetime">Krajnji datum i vreme:</label>
+									<input type="datetime-local" id="search-end-datetime" oninput="filterCourses()">
+								</div>								
 							</form>
 							<table id="courses-table">
 								<thead>
@@ -130,49 +132,69 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 		<script src = "assets/js/prevent.js"></script>
 		<script>
-			// Initialize datetime pickers
-			$(function() {
-				$("#search-start-datetime, #search-end-datetime").datetimepicker({
-					format: 'Y-m-d H:i:s', // Include seconds in format
-					step: 30 // 30-minute intervals
-				});
+			document.addEventListener('DOMContentLoaded', function() {
+				// Učitavanje svih lekcija pri pokretanju stranice
+				fetchLessons();
+		
+				// Event listener za pretragu
+				document.getElementById('search-form').addEventListener('input', filterCourses);
 			});
-
-			// Search function for filtering courses
-			function filterCourses() {
-				var nameInput = document.getElementById("search-name").value.toLowerCase();
-				var teacherInput = document.getElementById("search-teacher").value.toLowerCase();
-				var startInput = new Date(document.getElementById("search-start-datetime").value);
-				var endInput = new Date(document.getElementById("search-end-datetime").value);
-				var table = document.getElementById("courses-table");
-				var rows = table.getElementsByTagName("tr");
-
-				for (var i = 1; i < rows.length; i++) {
-					var cells = rows[i].getElementsByTagName("td");
-					var nameCell = cells[0].innerText.toLowerCase();
-					var teacherCell = cells[2].innerText.toLowerCase();
-					var timeCell = new Date(cells[3].innerText);
-
-					// Check if course fits the search criteria
-					if (
-						nameCell.indexOf(nameInput) > -1 &&
-						teacherCell.indexOf(teacherInput) > -1 &&
-						(!isNaN(startInput) ? timeCell >= startInput : true) &&
-						(!isNaN(endInput) ? timeCell <= endInput : true)
-					) {
-						rows[i].style.display = "";
-					} else {
-						rows[i].style.display = "none";
-					}
+		
+			async function fetchLessons(body = null) {
+				const url = 'http://localhost:8080/api/lessons';
+				const options = {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: body ? JSON.stringify(body) : null
+				};
+		
+				try {
+					const response = await fetch(url, options);
+					const lessons = await response.json();
+					populateTable(lessons);
+				} catch (error) {
+					console.error('Greška pri povlačenju podataka:', error);
 				}
 			}
+		
+			function filterCourses() {
+			const nameInput = document.getElementById("search-name").value.trim();
+			const teacherInput = document.getElementById("search-teacher").value.trim();
+			const startInput = document.getElementById("search-start-datetime").value;
+			const endInput = document.getElementById("search-end-datetime").value;
 
-			// Logout functionality
-			document.getElementById('logout').addEventListener('click', function() {
-				localStorage.removeItem('username');
-				window.location.href = 'index.html';  // Redirect to login page
+			// Kreiranje JSON tela sa samo popunjenim vrednostima
+			const body = {};
+			if (nameInput) body.name = nameInput;
+			if (teacherInput) body.teacher = teacherInput;
+			if (startInput) body.start = new Date(startInput).toISOString(); // Konvertuje u ISO format
+			if (endInput) body.end = new Date(endInput).toISOString(); // Konvertuje u ISO format
+
+			fetchLessons(Object.keys(body).length ? body : null);
+		}
+
+		function populateTable(lessons) {
+			const tbody = document.getElementById('courses-tbody');
+			tbody.innerHTML = ''; // Očisti postojeće redove
+
+			lessons.forEach(lesson => {
+				const timeScheduled = new Date(lesson.timeScheduled);
+				const formattedDate = `${timeScheduled.getFullYear()}-${String(timeScheduled.getMonth() + 1).padStart(2, '0')}-${String(timeScheduled.getDate()).padStart(2, '0')}T${String(timeScheduled.getHours()).padStart(2, '0')}:${String(timeScheduled.getMinutes()).padStart(2, '0')}:00`;
+
+				const row = document.createElement('tr');
+				row.innerHTML = `
+					<td>${lesson.name}</td>
+					<td>${lesson.description}</td>
+					<td>${lesson.teacher}</td>
+					<td>${formattedDate}</td>
+					<td><a href="${lesson.link}" target="_blank">Detalji</a></td>
+				`;
+				tbody.appendChild(row);
 			});
+		}
+
 		</script>
+		
 
 	</body>
 </html>
