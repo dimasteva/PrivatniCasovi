@@ -50,15 +50,15 @@ public class LessonController {
         return lessonService.getLessonById(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteLesson(@PathVariable Integer id,@RequestBody UserLoginModel model) {
-        lessonService.deleteLesson(id,model);
-    }
-
     @PostMapping("/attending")
     public boolean isAttending(@RequestBody UserAttendanceModel model) {
         System.out.println(model.toString());
         return lessonService.isAttending(model);
+    }
+
+    @PostMapping("/delete")
+    public void delete(@RequestBody UserAttendanceModel model) {
+        return lessonService.deleteLesson(model);
     }
 
 }

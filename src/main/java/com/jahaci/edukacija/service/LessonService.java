@@ -89,8 +89,10 @@ public class LessonService {
         return lessonRepository.findById(id);
     }
 
-    public void deleteLesson(Integer id, UserLoginModel model) {
+    public void deleteLesson( UserAttendanceModel model) {
         Optional<User> user = userRepository.tryLogin(model.getUsername(), model.getPassword());
-        if(user.isPresent()) if(user.get().getName().equals(lessonRepository.findById(id).get().getTeacher())) lessonRepository.deleteById(id);
+        if(user.isPresent()) if(user.get().getName().equals(lessonRepository.findById(model.getLessonId()).get().getTeacher()))
+            lessonRepository.deleteById(model.getLessonId());
+        throw new InvalidLoginDataException("User is not the class teacher");
     }
 }
