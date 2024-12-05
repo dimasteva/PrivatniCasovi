@@ -10,7 +10,7 @@ public class UserAttendanceModel {
 
     public UserAttendanceModel(String username, String password, Integer lessonId) {
         this.username = username;
-        this.password = sha256(password);
+        this.password = password;
         this.lessonId = lessonId;
     }
 
@@ -30,7 +30,7 @@ public class UserAttendanceModel {
     }
 
     public void setPassword(String password) {
-        this.password = sha256(password);
+        this.password = password;
     }
 
     public Integer getLessonId() {
@@ -39,25 +39,5 @@ public class UserAttendanceModel {
 
     public void setLessonId(Integer lessonId) {
         this.lessonId = lessonId;
-    }
-
-    private String sha256(String s)
-    {
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-        byte[] encoded = digest.digest(s.getBytes(StandardCharsets.UTF_8));
-        return bytesToHex(encoded);
-    }
-
-    private String bytesToHex(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : bytes) {
-            sb.append(String.format("%02x", b));
-        }
-        return sb.toString();
     }
 }
