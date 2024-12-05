@@ -189,7 +189,7 @@
 
 			lessons.forEach(lesson => {
 				const timeScheduled = new Date(lesson.timeScheduled);
-				const formattedDate = `${timeScheduled.getFullYear()}-${String(timeScheduled.getMonth() + 1).padStart(2, '0')}-${String(timeScheduled.getDate()).padStart(2, '0')}T${String(timeScheduled.getHours()).padStart(2, '0')}:${String(timeScheduled.getMinutes()).padStart(2, '0')}:00`;
+				const formattedDate = `${timeScheduled.getFullYear()}-${String(timeScheduled.getMonth() + 1).padStart(2, '0')}-${String(timeScheduled.getDate()).padStart(2, '0')} ${String(timeScheduled.getHours()).padStart(2, '0')}:${String(timeScheduled.getMinutes()).padStart(2, '0')}`;
 
 				const row = document.createElement('tr');
 				row.innerHTML = `

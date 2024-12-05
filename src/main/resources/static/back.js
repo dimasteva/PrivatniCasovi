@@ -34,6 +34,7 @@ function login() {
             // If data is successfully parsed, handle it as a successful login
             localStorage.setItem('name', data.name);
             localStorage.setItem('username', data.username);
+            localStorage.setItem('password', data.password);
             localStorage.setItem('role', data.role);
 
             window.location.href = 'home.html';
@@ -62,6 +63,21 @@ function register() {
         role = "TEACHER";
 
     // Check if passwords match
+    if (password.length <= 3)
+    {
+        alert('Lozinka mora imati bar 4 karaktera');
+        return;
+    }
+    if (username.length <= 3)
+    {
+        alert('Korisničko ime mora imati bar 4 karaktera');
+        return;
+    }
+    if (regName.length <= 3)
+    {
+        alert('Ime i Prezime moraju imati bar 4 karaktera');
+        return;
+    }
     if (password !== confirmPassword) {
         alert('Passwords do not match!');
         return;
@@ -92,6 +108,7 @@ function register() {
             // If data is successfully parsed, handle it as a successful login
             localStorage.setItem('name', data.name);
             localStorage.setItem('username', data.username);
+            localStorage.setItem('password', data.password);
             localStorage.setItem('role', data.role);
 
             window.location.href = 'home.html';

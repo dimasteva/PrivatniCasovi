@@ -10,86 +10,81 @@
 	<body class="is-preload">
 
 		<!-- Wrapper -->
-			<div id="wrapper">
+		<div id="wrapper">
 
-				<!-- Header -->
-				<header id="header">
-					<div class="logo-and-name">
-						<h1><a href="index.html">eProfesor</a></h1>
-					</div>
-				</header>
+			<!-- Header -->
+			<header id="header" class="alt">
+				<h1>eProfesor</h1>
+				<p>Upravljaj profilom</p>
+			</header>
 
-				<!-- Nav -->
-				<nav id="nav">
-					<ul>
-						<li><a href="home.html">Početna</a></li>
-						<li><a href="search.html">Pretraga časova</a></li>
-						<li id="create-class"><a href="createLesson.html">Kreiraj čas</a></li>
-						<li><a href="#profile" class="active">Moj Profil</a></li>
-						<li><a href="logout.html" id = "logout">Odjavi se</a></li>
-					</ul>
-				</nav>
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="home.html">Početna</a></li>
+					<li><a href="search.html">Pretraga časova</a></li>
+					<li id="create-class"><a href="createLesson.html">Kreiraj čas</a></li>
+					<li><a href="#profile" class="active">Moj Profil</a></li>
+					<li><a href="logout.html" id="logout">Odjavi se</a></li>
+				</ul>
+			</nav>
 
-				<!-- Main -->
-				<div id="main">
+			<!-- Main -->
+			<div id="main">
 
-					<!-- Profile Section -->
-					<section id="profile" class="main">
-						<header class="major">
-							<h2>Moj Profil</h2>
-						</header>
-						
-						<div class="profile-container">
-							<!-- Informacije o korisniku -->
-							<div class="profile-info">
-								<h3>Podaci o korisniku</h3>
-								<table>
-									<tr>
-										<td><strong>Ime i prezime:</strong></td>
-										<td id="name">N/A</td>
-									</tr>
-									<tr>
-										<td><strong>Korisničko ime:</strong></td>
-										<td id="username">N/A</td>
-									</tr>
-									<tr>
-										<td><strong>Uloga:</strong></td>
-										<td id="role">N/A</td>
-									</tr>
-								</table>								
-							</div>
-						</div>						
+				<!-- Profile Section -->
+				<section id="profile" class="main">
+					<header class="major">
+						<h2>Moj Profil</h2>
+					</header>
 
-						<!-- Resetovanje lozinke -->
-						<div class="reset-password">
-							<h3>Resetuj lozinku</h3>
-							<form action="reset-password.html" method="post">
-								<div class="field">
-									<label for="current-password">Trenutna lozinka</label>
-									<input type="password" id="current-password" name="current-password" required />
-								</div>
-								<div class="field">
-									<label for="new-password">Nova lozinka</label>
-									<input type="password" id="new-password" name="new-password" required />
-								</div>
-								<div class="field">
-									<label for="confirm-password">Potvrdi novu lozinku</label>
-									<input type="password" id="confirm-password" name="confirm-password" required />
-								</div>
-								<ul class="actions">
-									<li><input type="submit" value="Promeni lozinku" class="button primary" /></li>
-								</ul>
-							</form>
+					<div class="profile-container">
+						<!-- Informacije o korisniku -->
+						<div class="profile-info">
+							<h3>Podaci o korisniku</h3>
+							<table>
+								<tr>
+									<td><strong>Ime i prezime:</strong></td>
+									<td id="name">N/A</td>
+								</tr>
+								<tr>
+									<td><strong>Korisničko ime:</strong></td>
+									<td id="username">N/A</td>
+								</tr>
+								<tr>
+									<td><strong>Uloga:</strong></td>
+									<td id="role">N/A</td>
+								</tr>
+							</table>								
 						</div>
-					</section>
-				</div>
+					</div>						
 
-				<!-- Footer -->
-				<footer id="footer">
-					<p class="copyright">&copy; 2024 eProfesor. Sva prava zadržana.</p>
-				</footer>
-
+					<!-- Resetovanje lozinke -->
+					<div class="reset-password">
+						<h3>Resetuj lozinku</h3>
+						<form id="reset-password-form">
+							<div class="field">
+								<label for="new-password">Nova lozinka</label>
+								<input type="password" id="new-password" name="new-password" required />
+							</div>
+							<div class="field">
+								<label for="confirm-password">Potvrdi novu lozinku</label>
+								<input type="password" id="confirm-password" name="confirm-password" required />
+							</div>
+							<ul class="actions">
+								<li><input type="submit" value="Promeni lozinku" class="button primary" /></li>
+							</ul>
+						</form>
+					</div>
+				</section>
 			</div>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<p class="copyright">&copy; 2024 eProfesor. Sva prava zadržana.</p>
+			</footer>
+
+		</div>
 
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
@@ -99,72 +94,101 @@
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
-		<script src = "assets/js/prevent.js"></script>
+		<script src="assets/js/prevent.js"></script>
 		<script>
 
 			document.addEventListener('DOMContentLoaded', function () {
-			const createClassMenuItem = document.getElementById('create-class');
-			const logoutButton = document.getElementById('logout');
-			if (createClassMenuItem) { // Proveri da li element postoji
-				const userRole = localStorage.getItem('role'); // Dohvati rolu iz localStorage
-				if (userRole === 'STUDENT') {
-					createClassMenuItem.remove(); // Ukloni element iz DOM-a
+				const createClassMenuItem = document.getElementById('create-class');
+				const logoutButton = document.getElementById('logout');
+				const resetPasswordForm = document.getElementById('reset-password-form');
+				const newPasswordInput = document.getElementById('new-password');
+				const confirmPasswordInput = document.getElementById('confirm-password');
+
+				// Proveri da li je korisnička uloga student
+				if (createClassMenuItem) {
+					const userRole = localStorage.getItem('role');
+					if (userRole === 'STUDENT') {
+						createClassMenuItem.remove();
+					}
 				}
-				} else {
-					console.error('Element sa ID-jem "create-class" nije pronađen.');
+
+				// Dohvatanje podataka iz localStorage
+				const name = localStorage.getItem('name');
+				const username = localStorage.getItem('username');
+				let role = localStorage.getItem('role');
+				if (role === 'TEACHER') role = 'Profesor';
+
+				// Funkcija za formatiranje stringa
+				function capitalizeFirstLetter(str) {
+					if (!str) return '';
+					return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 				}
-			// Dohvatanje elemenata
-			const nameElement = document.getElementById('name');
-			const usernameElement = document.getElementById('username');
-			const roleElement = document.getElementById('role');
 
-			// Dohvatanje podataka iz localStorage
-			const name = localStorage.getItem('name');
-			const username = localStorage.getItem('username');
-			role = localStorage.getItem('role');
-			if (role == 'TEACHER')
-				role = 'Profesor';
-			// Funkcija za formatiranje stringa: prvo slovo veliko, ostalo mala
-			function capitalizeFirstLetter(str) {
-				if (!str) return ''; // Provera da li je string validan
-				return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-			}
+				// Postavljanje podataka
+				document.getElementById('name').textContent = name || 'N/A';
+				document.getElementById('username').textContent = username || 'N/A';
+				document.getElementById('role').textContent = capitalizeFirstLetter(role) || 'N/A';
 
-			// Provera i postavljanje podataka
-			if (name) {
-				nameElement.textContent = name;
-			} else {
-				nameElement.textContent = 'N/A';
-			}
+				// Log out funkcionalnost
+				if (logoutButton) {
+					logoutButton.addEventListener('click', function (e) {
+						e.preventDefault();
+						localStorage.removeItem('name');
+						localStorage.removeItem('username');
+						localStorage.removeItem('role');
+						window.history.replaceState(null, null, 'index.html');
+						window.location.href = 'index.html';
+					});
+				}
 
-			if (username) {
-				usernameElement.textContent = username;
-			} else {
-				usernameElement.textContent = 'N/A';
-			}
+				// Password reset form submission
+				resetPasswordForm.addEventListener('submit', function (e) {
+				e.preventDefault(); // Sprečava reload stranice
 
-			if (role) {
-				roleElement.textContent = capitalizeFirstLetter(role);
-			} else {
-				roleElement.textContent = 'N/A';
-			}
-			if (logoutButton) {
-			logoutButton.addEventListener('click', function (e) {
-				e.preventDefault(); // Sprečava default ponašanje linka
+				const newPassword = newPasswordInput.value;
+				const confirmPassword = confirmPasswordInput.value;
 
-				// Brišemo korisničke podatke iz localStorage
-				localStorage.removeItem('name');
-				localStorage.removeItem('username');
-				localStorage.removeItem('role');
+				// Proveri da li se lozinke poklapaju
+				if (newPassword !== confirmPassword) {
+					alert("Lozinke se ne poklapaju. Molimo vas da pokušate ponovo.");
+					return;
+				}
 
-				window.history.replaceState(null, null, 'index.html');
+				// Dohvati podatke iz localStorage
+				const username = localStorage.getItem('username');
+				const password = localStorage.getItem('password'); // Assuming the password is also stored in localStorage
 
-				// Preusmeravanje na index.html
-				window.location.href = 'index.html';
+				// Pravljenje JSON objekta za slanje
+				const data = {
+					"username": username,
+					"password": password,
+					"newPassword": newPassword
+				};
+
+				// Slanje POST zahteva
+				fetch('/api/users/reset', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(data),
+				})
+				.then(response => response.json())
+				.then(data => {
+					// Ako je uspešno, obavesti korisnika i ažuriraj localStorage sa novom lozinkom
+					if (data.password) { // Assuming the response contains the updated password
+						localStorage.setItem('password', data.password); // Save the updated password in localStorage
+						alert("Lozinka je uspešno promenjena.");
+					} else {
+						alert("Došlo je do greške pri promeni lozinke.");
+					}
+				})
+				.catch(error => {
+					// Ako dođe do greške, obavesti korisnika
+					alert("Došlo je do greške: " + error.message);
+				});
 			});
-		}
-
-		});
+			});
 
 		</script>
 	</body>
