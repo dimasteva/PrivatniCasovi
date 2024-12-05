@@ -72,6 +72,15 @@ public class LessonService {
         });
     }
 
+    public boolean isAttending(UserAttendanceModel model) {
+        Optional<User> user = userRepository.tryLogin(model.getUsername(), model.getPassword());
+        if(user.isPresent()) {
+            Lesson l = lessonRepository.findById(model.getLessonId()).get();
+            return l.getAttendance().contains(user.get());
+        }
+        throw new InvalidLoginDataException("Invalid Username or Password");
+    }
+
     public List<Lesson> getAllLessons() {
         return lessonRepository.findAll();
     }

@@ -55,4 +55,10 @@ public class LessonController {
         lessonService.deleteLesson(id,model);
     }
 
+    @PostMapping("/attending")
+    public boolean isAttending(@RequestBody UserAttendanceModel model) {
+        System.out.println(model.toString());
+        return lessonService.isAttending(model);
+    }
+
 }

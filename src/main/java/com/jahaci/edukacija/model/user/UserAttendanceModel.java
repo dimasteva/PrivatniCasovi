@@ -40,4 +40,13 @@ public class UserAttendanceModel {
     public void setLessonId(Integer lessonId) {
         this.lessonId = lessonId;
     }
+
+    @Override
+    public String toString() {
+        return "UserAttendanceModel{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", lessonId=" + lessonId +
+                '}';
+    }
 }
