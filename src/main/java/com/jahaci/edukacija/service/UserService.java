@@ -25,8 +25,8 @@ public class UserService {
         if(userRepository.usernameExists(user.getUsername())) {
             throw new UsernameAlreadyExistsException("User with that username already exists.");
         }
-        else if(!user.getUsername().contains(" ")) {
-            throw new UsernameMustContainSpaceException("Username must contain a space between name and surname.");
+        else if(!user.getName().contains(" ")) {
+            throw new UsernameMustContainSpaceException("Name must contain a space between name and surname.");
         }
         else return userRepository.save(user);
     }
