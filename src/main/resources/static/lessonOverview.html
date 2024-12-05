@@ -37,6 +37,7 @@
                             <p><strong>Profesor:</strong> <span id="lesson-teacher"></span></p>
                             <p><strong>Zakazano vreme:</strong> <span id="lesson-time"></span></p>
                             <p><strong>Link za čas:</strong> <a id="lesson-link" href="#" target="_blank">Kliknite ovde</a></p>
+                            <p><strong><button id = "attend-button" class = "button primary">Attend</button></strong></p>
                         </div>                        
                         <a href="search.html" class="button">Nazad na pretragu</a>
                     </div>
@@ -87,7 +88,11 @@
             const lessonTeacher = localStorage.getItem('lessonTeacher');
             const lessonTime = localStorage.getItem('lessonTime');
             const lessonLink = localStorage.getItem('lessonLink');
-    
+            const attendButton = document.getElementById('attend-button');
+            doesAttend = localStorage.getItem('isAttend');
+
+            if (doesAttend == "1")
+                attendButton.textContent = "Unattend";
             if (lessonName) document.getElementById('lesson-name').textContent = lessonName;
             if (lessonDescription) document.getElementById('lesson-description').textContent = lessonDescription;
             if (lessonTeacher) document.getElementById('lesson-teacher').textContent = lessonTeacher;
@@ -97,6 +102,82 @@
                 linkElement.href = lessonLink;
                 linkElement.textContent = lessonLink;
             }
+            
+
+            // Dodaj event listener za klik
+            attendButton.addEventListener('click', async function () {
+    if (attendButton.textContent === "Attend") {
+        // Uzmi podatke iz LocalStorage
+        const username = localStorage.getItem('username');
+        const password = localStorage.getItem('password');
+        const lessonId = parseInt(localStorage.getItem('lessonId'), 10); // Pretpostavljamo da lessonId postoji u LocalStorage
+
+        // Kreiraj telo zahteva
+        const requestBody = {
+            username: username,
+            password: password,
+            lessonId: lessonId
+        };
+
+        try {
+            // Pošalji POST zahtev
+            const response = await fetch('/api/lessons/attend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (response.ok) {
+                const jsonResponse = await response.json(); // Dobijamo odgovor u JSON formatu
+                console.log('Uspešno!', jsonResponse);
+                attendButton.textContent = "Unattend"; // Promeni tekst dugmeta
+            } else {
+                console.error('Neuspešno! Status:', response.status);
+                alert('Neuspešno prisustvovanje lekciji.');
+            }
+        } catch (error) {
+            console.error('Greška prilikom slanja zahteva:', error);
+            alert('Dogodila se greška. Pokušajte ponovo kasnije.');
+        }
+    } else {
+        const username = localStorage.getItem('username');
+        const password = localStorage.getItem('password');
+        const lessonId = parseInt(localStorage.getItem('lessonId'), 10); // Pretpostavljamo da lessonId postoji u LocalStorage
+
+        // Kreiraj telo zahteva
+        const requestBody = {
+            username: username,
+            password: password,
+            lessonId: lessonId
+        };
+
+        try {
+            // Pošalji POST zahtev
+            const response = await fetch('/api/lessons/unattend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (response.ok) {
+                const jsonResponse = await response.json(); // Dobijamo odgovor u JSON formatu
+                console.log('Uspešno!', jsonResponse);
+                attendButton.textContent = "Attend"; // Promeni tekst dugmeta
+            } else {
+                console.error('Neuspešno! Status:', response.status);
+                alert('Neuspešno prisustvovanje lekciji.');
+            }
+        } catch (error) {
+            console.error('Greška prilikom slanja zahteva:', error);
+            alert('Dogodila se greška. Pokušajte ponovo kasnije.');
+        }
+        attendButton.textContent = "Attend"; // Samo promeni tekst ako nije "Attend"
+    }
+});
     
             // Dohvatanje liste prisutnih korisnika
             if (lessonId) {
