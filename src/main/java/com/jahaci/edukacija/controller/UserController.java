@@ -35,7 +35,7 @@ public class UserController {
         //userService.deleteUser(id);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public User login(@RequestBody UserLoginModel user) {
         return userService.tryLogin(user);
     }
